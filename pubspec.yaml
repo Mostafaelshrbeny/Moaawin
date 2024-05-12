@@ -1,0 +1,69 @@
+name: handyzone
+description: A new Flutter application.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.8+9
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  animated_text_kit: ^4.2.1
+  cupertino_icons: ^1.0.5
+  solid_bottom_sheet:
+    git:
+      url: https://github.com/dbenitez-bcn/solid_bottom_sheet.git
+
+  flutter_bloc: ^8.0.1
+  flutter_phoenix: ^1.0.0
+
+  blur: ^3.1.0
+  animation_wrappers: ^3.0.0
+  google_mobile_ads: ^1.3.0
+  shared_preferences: ^2.0.13
+  # buy_this_app:
+  #   git:
+  #     url: git@gitlab.com:verbosetech-flutter/buy-this-app-package.git
+  #     ref: c489910f
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.9.0"
+
+flutter_launcher_name:
+  name: "Handyzone"
+
+flutter_icons:
+  android: "ic_launcher"
+  ios: true
+  image_path: "assets/Icons/appIcon.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/PopularService/
+    - assets/Handyzone/
+    - assets/HomeClean/
+    - assets/Icons/
+    - assets/Profiles/
+    - assets/Providers/
+    - assets/Reviews/
+    - assets/portfolio/
+    - assets/Bookings/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: fonts/Poppins/Poppins-Bold.ttf
+        - asset: fonts/Poppins/Poppins-Thin.ttf
+        - asset: fonts/Poppins/Poppins-Regular.ttf
+        - asset: fonts/Poppins/Poppins-Medium.ttf
+        - asset: fonts/Poppins/Poppins-Light.ttf

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:animation_wrappers/animation_wrappers.dart';
 // import 'package:buy_this_app/buy_this_app.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:handyzone/Locale/locales.dart';
 import 'package:handyzone/Routes/routes.dart';
 import 'package:handyzone/Theme/colors.dart';
@@ -21,57 +21,6 @@ class PopularService {
 }
 
 class _HomePageUIState extends State<HomePageUI> {
-  static final AdRequest request = AdRequest(
-    keywords: <String>['foo', 'bar'],
-    contentUrl: 'http://foo.com/bar.html',
-    nonPersonalizedAds: true,
-  );
-
-  BannerAd? _anchoredBanner;
-  bool _loadingAnchoredBanner = false;
-
-  Future<void> _createAnchoredBanner(BuildContext context) async {
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getAnchoredAdaptiveBannerAdSize(
-      Orientation.portrait,
-      MediaQuery.of(context).size.width.truncate(),
-    );
-
-    if (size == null) {
-      print('Unable to get height of anchored banner.');
-      return;
-    }
-
-    final BannerAd banner = BannerAd(
-      size: size,
-      request: request,
-      adUnitId: Platform.isAndroid
-          ? 'ca-app-pub-3940256099942544/6300978111'
-          : 'ca-app-pub-3940256099942544/2934735716',
-      listener: BannerAdListener(
-        onAdLoaded: (Ad ad) {
-          print('$BannerAd loaded.');
-          setState(() {
-            _anchoredBanner = ad as BannerAd?;
-          });
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('$BannerAd failedToLoad: $error');
-          ad.dispose();
-        },
-        onAdOpened: (Ad ad) => print('$BannerAd onAdOpened.'),
-        onAdClosed: (Ad ad) => print('$BannerAd onAdClosed.'),
-      ),
-    );
-    return banner.load();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _anchoredBanner?.dispose();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -111,10 +60,6 @@ class _HomePageUIState extends State<HomePageUI> {
 
     return Builder(
       builder: (BuildContext context) {
-        if (!_loadingAnchoredBanner) {
-          _loadingAnchoredBanner = true;
-          _createAnchoredBanner(context);
-        }
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -201,7 +146,7 @@ class _HomePageUIState extends State<HomePageUI> {
                             ),
                             filled: true,
                             hintText: locale.searchService,
-                            fillColor: Theme.of(context).colorScheme.background,
+                            fillColor: Theme.of(context).colorScheme.surface,
                             prefixIcon: Icon(
                               Icons.search,
                               size: 24,
@@ -237,7 +182,7 @@ class _HomePageUIState extends State<HomePageUI> {
                         child: Stack(
                           children: [
                             Container(
-                              color: Theme.of(context).colorScheme.background,
+                              color: Theme.of(context).colorScheme.surface,
                               width: double.infinity,
                               height: double.infinity,
                               margin: EdgeInsets.only(bottom: 20),
@@ -272,12 +217,6 @@ class _HomePageUIState extends State<HomePageUI> {
                     },
                   ),
                 ),
-                if (_anchoredBanner != null)
-                  Container(
-                    width: _anchoredBanner!.size.width.toDouble(),
-                    height: _anchoredBanner!.size.height.toDouble(),
-                    child: AdWidget(ad: _anchoredBanner!),
-                  ),
               ],
             ),
             beginOffset: Offset(0, 0.8),
